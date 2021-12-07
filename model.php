@@ -30,7 +30,7 @@ class Model
           $phone = $_POST['phone'];
 
           $query = "INSERT INTO account (FirstName,LastName,Email,CompanyName,Position,Phone) 
-                                  VALUES ('$firstName', '$lastName', '$email', '$company', '$position', '$phone')";
+                                    VALUES ('$firstName', '$lastName', '$email', '$company', '$position', '$phone')";
           if ($sql = $this->conn->query($query)) {
             echo "<script>alert('account added successfully');</script>";
             echo "<script>window.location.href = 'index.php';</script>";
@@ -49,18 +49,37 @@ class Model
   public function fetch()
   {
     $data = null;
-    $query = "SELECT * FROM account";
-    if ($sql = $this->conn->query($query)) {
-      while ($row = mysqli_fetch_assoc($sql)) {
-        $data[] = $row;
-      }
-    }
-    return $data;
+    $query = "SELECT count(*) FROM account";
+    $sql = $this->conn->query($query);
+
+    return $sql;
   }
 
   public function delete($id)
   {
     $query = "DELETE FROM account where id = '$id'";
+    if ($sql = $this->conn->query($query)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function edit($id)
+  {
+    $data = null;
+    $query = "SELECT * FROM account WHERE id = '$id'";
+    if ($sql = $this->conn->query($query)) {
+      while ($row = $sql->fetch_assoc()) {
+        $data = $row;
+      }
+    }
+    return $data;
+  }
+
+  public function update($data)
+  {
+    $query = "UPDATE account SET FirstName='$data[FirstName]', LastName='$data[LastName]',Email='$data[Email]', CompanyName='$data[CompanyName]', Position='$data[Position]', Phone='$data[Phone]' WHERE id='$data[id]'";
     if ($sql = $this->conn->query($query)) {
       return true;
     } else {
