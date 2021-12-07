@@ -1,3 +1,4 @@
+//Скрипт для создания кастомного попапа
 const popupLinks = document.querySelectorAll('.popup-link');
 const body = document.querySelector('body');
 const lockPadding = document.querySelectorAll('._lock-padding');

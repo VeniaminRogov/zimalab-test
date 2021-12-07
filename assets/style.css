@@ -45,6 +45,14 @@ a {
   align-items: center;
   justify-content: center;
   margin: 40px 0;
+
+  list-style: none;
+}
+.pagination__item {
+  margin-right: 30px;
+}
+.disabled {
+  opacity: 0.4;
 }
 /* !Стили для btn */
 .btn {

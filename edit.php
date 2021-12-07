@@ -10,15 +10,17 @@
 </head>
 
 <body>
+  <!-- Страница изменения данных записи -->
   <?php
-  include 'model.php';
-  $model = new Model();
-  $id = $_REQUEST['id'];
-  $data = $model->edit($id);
+  include 'model.php'; //подключаем файл, содержащий класс подключения к базе данных
+  $model = new Model(); //подключаем класс
+  $id = $_REQUEST['id']; //из запроса вытаскием переданный номер записи
+  $data = $model->edit($id); //получаем данные записи
 
-  if (isset($_POST["update"])) {
-    if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email'])) {
-      if (!empty($_POST['firstName']) && $_POST['lastName'] && $_POST['email']) {
+  if (isset($_POST["update"])) { //если тип запроса update
+    if (isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email'])) { //если поля данных заполнены
+      if (!empty($_POST['firstName']) && $_POST['lastName'] && $_POST['email']) { //если поля не пусты
+        //заполняем данные
         echo $data['id'] = $id;
         $data['FirstName'] = $_POST['firstName'];
         $data['LastName'] = $_POST['lastName'];
@@ -27,17 +29,14 @@
         $data['Position'] = $_POST['position'];
         $data['Phone'] = $_POST['phone'];
 
-        $update = $model->update($data);
+        $update = $model->update($data); //метод, обновляющий данные записи в базе данных
 
-        if ($update) {
+        if ($update) { //если метод сработал, выводим сообщение о добавлении
           echo "<script>alert('account update successfully');</script>";
           echo "<script>window.location.href = 'index.php';</script>";
-        } else {
+        } else { //иначе сообщение о неудаче
           echo "<script>alert('account update unsuccessful');</script>";
         }
-      } else {
-        echo "<script>alert('please fill out fields');</script>";
-        header("Location: edit.php?id=$id");
       }
     }
   }
@@ -46,6 +45,7 @@
     <main class="main">
       <h1 class="main__title">Edit page</h1>
       <div class="content">
+        <!-- Форма изменения записей -->
         <form class="form form-edit" action="" method="post">
           <div class="form-group__items">
             <div class="form-group__item">
